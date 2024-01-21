@@ -1,0 +1,4 @@
+server:
+  port: 8002
+  servlet:
+    context-path: /api/short-link/admin/v1

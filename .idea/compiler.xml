@@ -6,7 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="shortlink" />
+        <module name="shortlink-admin" />
+        <module name="shortlink-gateway" />
+        <module name="shortlink-project" />
       </profile>
     </annotationProcessing>
   </component>

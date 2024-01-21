@@ -6,7 +6,14 @@
 
     <groupId>com.enndfp.shortlink</groupId>
     <artifactId>shortlink</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>shortlink-admin</module>
+        <module>shortlink-gateway</module>
+        <module>shortlink-project</module>
+    </modules>
 
     <properties>
         <java.version>17</java.version>
