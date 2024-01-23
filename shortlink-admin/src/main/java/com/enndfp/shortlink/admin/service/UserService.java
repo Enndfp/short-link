@@ -2,8 +2,10 @@ package com.enndfp.shortlink.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.enndfp.shortlink.admin.dao.entity.UserDO;
+import com.enndfp.shortlink.admin.dto.req.UserLoginReqDTO;
 import com.enndfp.shortlink.admin.dto.req.UserRegisterReqDTO;
 import com.enndfp.shortlink.admin.dto.req.UserUpdateReqDTO;
+import com.enndfp.shortlink.admin.dto.resp.UserLoginRespDTO;
 import com.enndfp.shortlink.admin.dto.resp.UserRespDTO;
 
 /**
@@ -42,4 +44,21 @@ public interface UserService extends IService<UserDO> {
      * @param userUpdateReqDTO 用户修改请求实体
      */
     void update(UserUpdateReqDTO userUpdateReqDTO);
+
+    /**
+     * 用户登录
+     *
+     * @param userLoginReqDTO 用户登录请求实体
+     * @return 登录结果
+     */
+    UserLoginRespDTO login(UserLoginReqDTO userLoginReqDTO);
+
+    /**
+     * 检查用户是否登录
+     *
+     * @param username 用户名
+     * @param token    token
+     * @return 是否登录
+     */
+    Boolean checkLogin(String username, String token);
 }

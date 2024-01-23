@@ -3,9 +3,11 @@ package com.enndfp.shortlink.admin.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.enndfp.shortlink.admin.common.convention.result.Result;
 import com.enndfp.shortlink.admin.common.convention.result.Results;
+import com.enndfp.shortlink.admin.dto.req.UserLoginReqDTO;
 import com.enndfp.shortlink.admin.dto.req.UserRegisterReqDTO;
 import com.enndfp.shortlink.admin.dto.req.UserUpdateReqDTO;
 import com.enndfp.shortlink.admin.dto.resp.UserActualRespDTO;
+import com.enndfp.shortlink.admin.dto.resp.UserLoginRespDTO;
 import com.enndfp.shortlink.admin.dto.resp.UserRespDTO;
 import com.enndfp.shortlink.admin.service.UserService;
 import jakarta.annotation.Resource;
@@ -75,5 +77,21 @@ public class UserController {
     public Result<Void> update(@RequestBody UserUpdateReqDTO userUpdateReqDTO) {
         userService.update(userUpdateReqDTO);
         return Results.success();
+    }
+
+    /**
+     * 用户登录
+     */
+    @PostMapping("/login")
+    public Result<UserLoginRespDTO> login(@RequestBody UserLoginReqDTO userLoginReqDTO) {
+        return Results.success(userService.login(userLoginReqDTO));
+    }
+
+    /**
+     * 检查用户是否登录
+     */
+    @GetMapping("/check-login")
+    public Result<Boolean> checkLogin(@RequestParam("username") String username, @RequestParam("token") String token) {
+        return Results.success(userService.checkLogin(username, token));
     }
 }
