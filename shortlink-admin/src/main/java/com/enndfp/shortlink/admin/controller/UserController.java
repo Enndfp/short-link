@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.enndfp.shortlink.admin.common.convention.result.Result;
 import com.enndfp.shortlink.admin.common.convention.result.Results;
 import com.enndfp.shortlink.admin.dto.req.UserRegisterReqDTO;
+import com.enndfp.shortlink.admin.dto.req.UserUpdateReqDTO;
 import com.enndfp.shortlink.admin.dto.resp.UserActualRespDTO;
 import com.enndfp.shortlink.admin.dto.resp.UserRespDTO;
 import com.enndfp.shortlink.admin.service.UserService;
@@ -64,6 +65,15 @@ public class UserController {
     @PostMapping()
     public Result<Void> register(@RequestBody UserRegisterReqDTO userRegisterReqDTO) {
         userService.register(userRegisterReqDTO);
+        return Results.success();
+    }
+
+    /**
+     * 用户修改
+     */
+    @PutMapping()
+    public Result<Void> update(@RequestBody UserUpdateReqDTO userUpdateReqDTO) {
+        userService.update(userUpdateReqDTO);
         return Results.success();
     }
 }

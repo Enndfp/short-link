@@ -2,12 +2,14 @@ package com.enndfp.shortlink.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.enndfp.shortlink.admin.common.convention.exception.ClientException;
 import com.enndfp.shortlink.admin.common.enums.UserErrorCodeEnum;
 import com.enndfp.shortlink.admin.dao.entity.UserDO;
 import com.enndfp.shortlink.admin.dao.mapper.UserMapper;
 import com.enndfp.shortlink.admin.dto.req.UserRegisterReqDTO;
+import com.enndfp.shortlink.admin.dto.req.UserUpdateReqDTO;
 import com.enndfp.shortlink.admin.dto.resp.UserRespDTO;
 import com.enndfp.shortlink.admin.service.UserService;
 import jakarta.annotation.Resource;
@@ -69,5 +71,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         } finally {
             lock.unlock();
         }
+    }
+
+    @Override
+    public void update(UserUpdateReqDTO userUpdateReqDTO) {
+        // TODO 验证当前用户是否为登录用户
+        LambdaUpdateWrapper<UserDO> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(UserDO::getUsername, userUpdateReqDTO.getUsername());
+        userMapper.update(BeanUtil.toBean(userUpdateReqDTO, UserDO.class), updateWrapper);
     }
 }
