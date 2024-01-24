@@ -2,7 +2,7 @@ package com.enndfp.shortlink.admin.common.convention.exception;
 
 import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.common.convention.result.Result;
-import com.enndfp.shortlink.admin.common.convention.result.ResultUtil;
+import com.enndfp.shortlink.admin.utils.ResultUtil;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;

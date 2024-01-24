@@ -2,7 +2,7 @@ package com.enndfp.shortlink.admin.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.enndfp.shortlink.admin.common.convention.result.Result;
-import com.enndfp.shortlink.admin.common.convention.result.ResultUtil;
+import com.enndfp.shortlink.admin.utils.ResultUtil;
 import com.enndfp.shortlink.admin.dto.req.UserLoginReqDTO;
 import com.enndfp.shortlink.admin.dto.req.UserRegisterReqDTO;
 import com.enndfp.shortlink.admin.dto.req.UserUpdateReqDTO;

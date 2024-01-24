@@ -16,6 +16,10 @@ public class ServerException extends AbstractException {
         this(message, null, ErrorCode.SERVICE_ERROR);
     }
 
+    public ServerException(IErrorCode errorCode,String message) {
+        this(message, null, errorCode);
+    }
+
     public ServerException(IErrorCode errorCode) {
         this(null, errorCode);
     }

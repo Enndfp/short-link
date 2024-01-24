@@ -10,6 +10,13 @@ import com.enndfp.shortlink.admin.common.convention.errorcode.IErrorCode;
  */
 public class RemoteException extends AbstractException {
 
+    public RemoteException(IErrorCode errorCode) {
+        this(null, null, errorCode);
+    }
+
+    public RemoteException(IErrorCode errorCode,String message) {
+        this(message, null, errorCode);
+    }
     public RemoteException(String message) {
         this(message, null, ErrorCode.REMOTE_ERROR);
     }

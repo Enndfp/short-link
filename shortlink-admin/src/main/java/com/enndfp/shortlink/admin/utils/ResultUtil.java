@@ -1,7 +1,8 @@
-package com.enndfp.shortlink.admin.common.convention.result;
+package com.enndfp.shortlink.admin.utils;
 
 import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.common.convention.exception.AbstractException;
+import com.enndfp.shortlink.admin.common.convention.result.Result;
 
 import java.util.Map;
 import java.util.Optional;
