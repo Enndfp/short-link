@@ -42,10 +42,13 @@ rules:
           phone:
             # 手机号字段存储的密文字段，这个是数据库中真实存在的字段
             cipherColumn: phone
-            # 身份证字段加密算法
+            # 手机号字段加密算法
             encryptorName: common_encryptor
           mail:
             cipherColumn: mail
+            encryptorName: common_encryptor
+          pwd:
+            cipherColumn: password
             encryptorName: common_encryptor
         # 是否按照密文字段查询
         queryWithCipherColumn: true
@@ -57,7 +60,7 @@ rules:
         type: AES
         props:
           # AES 加密密钥
-          aes-key-value: d6oadClrrb9A3GWo
+          aes-key-value: Enndfp
 # 展现逻辑 SQL & 真实 SQL
 props:
   sql-show: true

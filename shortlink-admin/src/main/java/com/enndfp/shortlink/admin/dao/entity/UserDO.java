@@ -1,10 +1,11 @@
 package com.enndfp.shortlink.admin.dao.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import com.enndfp.shortlink.admin.common.serialize.PhoneDesensitizationSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,11 +18,10 @@ import java.util.Date;
 @TableName("t_user")
 public class UserDO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
     /**
-     * id
+     * ID
      */
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -42,6 +42,7 @@ public class UserDO implements Serializable {
     /**
      * 手机号
      */
+    @JsonSerialize(using = PhoneDesensitizationSerializer.class)
     private String phone;
 
     /**
@@ -52,24 +53,26 @@ public class UserDO implements Serializable {
     /**
      * 注销时间戳
      */
-    private Long deletionTime;
+    private Date deletedTime;
 
     /**
      * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    private Date createdTime;
 
     /**
      * 修改时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateTime;
+    private Date updatedTime;
 
     /**
      * 删除标识 0：未删除 1：已删除
      */
-    @TableField(fill = FieldFill.INSERT)
-    private Integer delFlag;
+    @TableLogic(value = "0", delval = "1,deleted_time = now()")
+    private Integer isDeleted;
+
+    @Serial
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 
 }
