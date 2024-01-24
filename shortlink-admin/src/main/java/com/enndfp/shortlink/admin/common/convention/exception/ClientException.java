@@ -1,6 +1,6 @@
 package com.enndfp.shortlink.admin.common.convention.exception;
 
-import com.enndfp.shortlink.admin.common.convention.errorcode.BaseErrorCode;
+import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.common.convention.errorcode.IErrorCode;
 
 /**
@@ -15,7 +15,7 @@ public class ClientException extends AbstractException {
     }
 
     public ClientException(String message) {
-        this(message, null, BaseErrorCode.CLIENT_ERROR);
+        this(message, null, ErrorCode.CLIENT_ERROR);
     }
 
     public ClientException(String message, IErrorCode errorCode) {

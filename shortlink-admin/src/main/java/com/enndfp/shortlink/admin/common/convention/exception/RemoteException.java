@@ -1,6 +1,6 @@
 package com.enndfp.shortlink.admin.common.convention.exception;
 
-import com.enndfp.shortlink.admin.common.convention.errorcode.BaseErrorCode;
+import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.common.convention.errorcode.IErrorCode;
 
 /**
@@ -11,7 +11,7 @@ import com.enndfp.shortlink.admin.common.convention.errorcode.IErrorCode;
 public class RemoteException extends AbstractException {
 
     public RemoteException(String message) {
-        this(message, null, BaseErrorCode.REMOTE_ERROR);
+        this(message, null, ErrorCode.REMOTE_ERROR);
     }
 
     public RemoteException(String message, IErrorCode errorCode) {

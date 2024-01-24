@@ -1,6 +1,6 @@
 package com.enndfp.shortlink.admin.common.convention.exception;
 
-import com.enndfp.shortlink.admin.common.convention.errorcode.BaseErrorCode;
+import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.common.convention.errorcode.IErrorCode;
 
 import java.util.Optional;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class ServerException extends AbstractException {
 
     public ServerException(String message) {
-        this(message, null, BaseErrorCode.SERVICE_ERROR);
+        this(message, null, ErrorCode.SERVICE_ERROR);
     }
 
     public ServerException(IErrorCode errorCode) {

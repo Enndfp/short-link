@@ -1,5 +1,6 @@
 package com.enndfp.shortlink.admin.common.convention.result;
 
+import com.enndfp.shortlink.admin.common.convention.errorcode.IErrorCode;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -8,6 +9,7 @@ import java.io.Serializable;
 
 /**
  * 全局返回对象
+ *
  * @author Enndfp
  */
 @Data
@@ -16,11 +18,6 @@ public class Result<T> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 5679018624309023727L;
-
-    /**
-     * 正确返回码
-     */
-    public static final String SUCCESS_CODE = "0";
 
     /**
      * 返回码
@@ -42,7 +39,14 @@ public class Result<T> implements Serializable {
      */
     private String requestId;
 
-    public boolean isSuccess() {
-        return SUCCESS_CODE.equals(code);
+    public Result(String code, String message, T data, String requestId) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+        this.requestId = requestId;
+    }
+
+    public Result(IErrorCode iErrorCode) {
+        this(iErrorCode.code(), iErrorCode.message(), null, null);
     }
 }

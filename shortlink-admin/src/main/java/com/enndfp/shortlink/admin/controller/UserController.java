@@ -2,7 +2,7 @@ package com.enndfp.shortlink.admin.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.enndfp.shortlink.admin.common.convention.result.Result;
-import com.enndfp.shortlink.admin.common.convention.result.Results;
+import com.enndfp.shortlink.admin.common.convention.result.ResultUtil;
 import com.enndfp.shortlink.admin.dto.req.UserLoginReqDTO;
 import com.enndfp.shortlink.admin.dto.req.UserRegisterReqDTO;
 import com.enndfp.shortlink.admin.dto.req.UserUpdateReqDTO;
@@ -33,7 +33,7 @@ public class UserController {
      */
     @GetMapping("{username}")
     public Result<UserRespDTO> getUserByUsername(@PathVariable("username") String username) {
-        return Results.success(userService.getUserByUsername(username));
+        return ResultUtil.success(userService.getUserByUsername(username));
     }
 
     /**
@@ -44,7 +44,7 @@ public class UserController {
      */
     @GetMapping("/actual/{username}")
     public Result<UserActualRespDTO> getActualUserByUsername(@PathVariable("username") String username) {
-        return Results.success(BeanUtil.toBean(userService.getUserByUsername(username), UserActualRespDTO.class));
+        return ResultUtil.success(BeanUtil.toBean(userService.getUserByUsername(username), UserActualRespDTO.class));
     }
 
     /**
@@ -55,7 +55,7 @@ public class UserController {
      */
     @GetMapping("/has-username")
     public Result<Boolean> hasUsername(@RequestParam("username") String username) {
-        return Results.success(userService.hasUsername(username));
+        return ResultUtil.success(userService.hasUsername(username));
     }
 
     /**
@@ -67,7 +67,7 @@ public class UserController {
     @PostMapping()
     public Result<Void> register(@RequestBody UserRegisterReqDTO userRegisterReqDTO) {
         userService.register(userRegisterReqDTO);
-        return Results.success();
+        return ResultUtil.success();
     }
 
     /**
@@ -76,7 +76,7 @@ public class UserController {
     @PutMapping()
     public Result<Void> update(@RequestBody UserUpdateReqDTO userUpdateReqDTO) {
         userService.update(userUpdateReqDTO);
-        return Results.success();
+        return ResultUtil.success();
     }
 
     /**
@@ -84,7 +84,7 @@ public class UserController {
      */
     @PostMapping("/login")
     public Result<UserLoginRespDTO> login(@RequestBody UserLoginReqDTO userLoginReqDTO) {
-        return Results.success(userService.login(userLoginReqDTO));
+        return ResultUtil.success(userService.login(userLoginReqDTO));
     }
 
     /**
@@ -92,7 +92,7 @@ public class UserController {
      */
     @GetMapping("/check-login")
     public Result<Boolean> checkLogin(@RequestParam("username") String username, @RequestParam("token") String token) {
-        return Results.success(userService.checkLogin(username, token));
+        return ResultUtil.success(userService.checkLogin(username, token));
     }
 
     /**
@@ -101,6 +101,6 @@ public class UserController {
     @DeleteMapping("/logout")
     public Result<Void> logout(@RequestParam("username") String username, @RequestParam("token") String token){
         userService.logout(username, token);
-        return Results.success();
+        return ResultUtil.success();
     }
 }
