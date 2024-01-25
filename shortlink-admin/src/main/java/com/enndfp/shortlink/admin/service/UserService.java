@@ -2,11 +2,12 @@ package com.enndfp.shortlink.admin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.enndfp.shortlink.admin.dao.entity.UserDO;
-import com.enndfp.shortlink.admin.dto.req.UserLoginReqDTO;
-import com.enndfp.shortlink.admin.dto.req.UserRegisterReqDTO;
-import com.enndfp.shortlink.admin.dto.req.UserUpdateReqDTO;
-import com.enndfp.shortlink.admin.dto.resp.UserLoginRespDTO;
-import com.enndfp.shortlink.admin.dto.resp.UserRespDTO;
+import com.enndfp.shortlink.admin.dto.req.user.UserLoginReqDTO;
+import com.enndfp.shortlink.admin.dto.req.user.UserRegisterReqDTO;
+import com.enndfp.shortlink.admin.dto.req.user.UserUpdateReqDTO;
+import com.enndfp.shortlink.admin.dto.resp.user.UserActualRespDTO;
+import com.enndfp.shortlink.admin.dto.resp.user.UserLoginRespDTO;
+import com.enndfp.shortlink.admin.dto.resp.user.UserRespDTO;
 
 /**
  * 用户业务层接口
@@ -24,12 +25,20 @@ public interface UserService extends IService<UserDO> {
     UserRespDTO getUserByUsername(String username);
 
     /**
+     * 根据用户名获取无脱敏用户信息
+     *
+     * @param username 用户名
+     * @return 无脱敏用户信息
+     */
+    UserActualRespDTO getActualUserByUsername(String username);
+
+    /**
      * 根据用户名判断用户是否存在
      *
      * @param username 用户名
      * @return 是否存在
      */
-    Boolean hasUsername(String username);
+    Boolean checkUsername(String username);
 
     /**
      * 用户注册
@@ -64,8 +73,9 @@ public interface UserService extends IService<UserDO> {
 
     /**
      * 用户登出
+     *
      * @param username 用户名
-     * @param token token
+     * @param token    token
      */
     void logout(String username, String token);
 }

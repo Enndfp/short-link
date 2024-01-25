@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
     /**
      * 拦截自定义抛出的异常
      */
-    @ExceptionHandler(value = {AbstractException.class})
+    @ExceptionHandler(AbstractException.class)
     public Result<?> abstractException(AbstractException ex) {
         log.error("abstractException: " + ex.getMessage(), ex);
         return ResultUtil.failure(ex.getErrorCode(), ex.getMessage());

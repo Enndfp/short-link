@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 布隆过滤器配置
+ *
  * @author Enndfp
  */
 @Configuration
@@ -17,8 +18,11 @@ public class RBloomFilterConfiguration {
      */
     @Bean
     public RBloomFilter<String> userRegisterCachePenetrationBloomFilter(RedissonClient redissonClient) {
+        // 1. 创建布隆过滤器对象
         RBloomFilter<String> cachePenetrationBloomFilter = redissonClient.getBloomFilter("userRegisterCachePenetrationBloomFilter");
+        // 2. 初始化布隆过滤器（预计元素数量为100000000L，误差率为0.001）
         cachePenetrationBloomFilter.tryInit(100000000L, 0.001);
+
         return cachePenetrationBloomFilter;
     }
 }

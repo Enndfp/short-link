@@ -1,4 +1,4 @@
-package com.enndfp.shortlink.admin.dto.resp;
+package com.enndfp.shortlink.admin.dto.resp.user;
 
 import com.enndfp.shortlink.admin.common.serialize.PhoneDesensitizationSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -10,7 +10,7 @@ import lombok.Data;
  * @author Enndfp
  */
 @Data
-public class UserRespDTO {
+public class UserActualRespDTO {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,7 +32,6 @@ public class UserRespDTO {
     /**
      * 手机号
      */
-    @JsonSerialize(using = PhoneDesensitizationSerializer.class)
     private String phone;
 
     /**

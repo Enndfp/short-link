@@ -3,7 +3,7 @@ dataSources:
   ds_0:
     dataSourceClassName: com.zaxxer.hikari.HikariDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
-    jdbcUrl: jdbc:mysql://127.0.0.1:3306/link?useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    jdbcUrl: jdbc:mysql://127.0.0.1:3306/link?useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true&allowMultiQueries=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: 123456
 
@@ -47,7 +47,7 @@ rules:
           mail:
             cipherColumn: mail
             encryptorName: common_encryptor
-          pwd:
+          password:
             cipherColumn: password
             encryptorName: common_encryptor
         # 是否按照密文字段查询
@@ -60,7 +60,7 @@ rules:
         type: AES
         props:
           # AES 加密密钥
-          aes-key-value: Enndfp
+          aes-key-value: d6oadClrrb9A3GWo
 # 展现逻辑 SQL & 真实 SQL
 props:
   sql-show: true

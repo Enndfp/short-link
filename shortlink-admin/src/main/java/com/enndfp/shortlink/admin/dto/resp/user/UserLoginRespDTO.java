@@ -1,4 +1,4 @@
-package com.enndfp.shortlink.admin.dto.resp;
+package com.enndfp.shortlink.admin.dto.resp.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

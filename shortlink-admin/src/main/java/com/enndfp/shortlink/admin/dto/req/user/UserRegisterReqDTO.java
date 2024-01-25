@@ -1,4 +1,4 @@
-package com.enndfp.shortlink.admin.dto.req;
+package com.enndfp.shortlink.admin.dto.req.user;
 
 import lombok.Data;
 
