@@ -10,10 +10,10 @@
             <option name="basePath" value="src/main/java" />
             <option name="classNameStrategy" value="camel" />
             <option name="encoding" value="UTF-8" />
-            <option name="extraClassSuffix" value="" />
+            <option name="extraClassSuffix" value="DO" />
             <option name="ignoreFieldPrefix" value="" />
             <option name="ignoreFieldSuffix" value="" />
-            <option name="ignoreTablePrefix" value="" />
+            <option name="ignoreTablePrefix" value="t_" />
             <option name="ignoreTableSuffix" value="" />
             <option name="moduleName" value="shortlink-admin" />
             <option name="modulePath" value="$PROJECT_DIR$" />
@@ -68,8 +68,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="TUser0" />
-                  <option name="tableName" value="t_user_0" />
+                  <option name="className" value="Group" />
+                  <option name="tableName" value="t_group" />
                 </TableUIInfo>
               </list>
             </option>
