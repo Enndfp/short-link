@@ -5,6 +5,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.enndfp.shortlink.admin.context.UserContext;
 import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.dao.entity.GroupDO;
 import com.enndfp.shortlink.admin.dao.mapper.GroupMapper;
@@ -43,8 +44,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         // 3. 添加分组
         GroupDO groupDO = new GroupDO();
         groupDO.setGid(gid);
-        // TODO: 从上下文中获取用户名
-        groupDO.setUsername("enndfp");
+        groupDO.setUsername(UserContext.getUsername());
         groupDO.setGroupName(groupName);
         int insert = groupMapper.insert(groupDO);
         ThrowUtil.throwServerIf(insert != 1, ErrorCode.GROUP_SAVE_ERROR);
@@ -52,8 +52,8 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
 
     @Override
     public List<GroupRespDTO> listGroup() {
-        // TODO: 从上下文中获取用户名
-        String username = "enndfp";
+        // 1. 从上下文中获取用户名
+        String username = UserContext.getUsername();
 
         // 2. 构造查询条件
         LambdaQueryWrapper<GroupDO> queryWrapper = new LambdaQueryWrapper<>();
@@ -77,8 +77,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         // 1. 构造查询条件
         LambdaQueryWrapper<GroupDO> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(GroupDO::getGid, gid);
-        // TODO: 从上下文中获取用户名
-        queryWrapper.eq(GroupDO::getUsername, "enndfp");
+        queryWrapper.eq(GroupDO::getUsername, UserContext.getUsername());
 
         // 2. 查询分组数量
         Long count = groupMapper.selectCount(queryWrapper);
