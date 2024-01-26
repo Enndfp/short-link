@@ -26,6 +26,7 @@ public enum ErrorCode implements IErrorCode {
     USER_INFO_UPDATE_ERROR("B000103", "用户信息更新失败"),
     USER_HAS_LOGIN("B000104", "用户已登录"),
     USER_OR_TOKEN_NULL("B000105", "用户不存在或token已过期"),
+    USER_NOT_LOGIN("B000106", "用户未登录"),
     GROUP_SAVE_ERROR("B000201", "分组保存失败"),
 
 
