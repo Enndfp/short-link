@@ -16,7 +16,8 @@ public class UserTableShardingTest {
             "\t`created_time` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',\n" +
             "\t`updated_time` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',\n" +
             "\t`is_deleted` TINYINT ( 1 ) DEFAULT 0 NOT NULL COMMENT '删除标识 0：未删除 1：已删除',\n" +
-            "PRIMARY KEY ( `id` ) \n" +
+            "\tPRIMARY KEY ( `id` ),\n" +
+            "\tUNIQUE KEY `idx_unique_username` ( `username` ) USING BTREE \n" +
             ") ENGINE = INNODB DEFAULT CHARSET = utf8mb4;";
 
     public static void main(String[] args) {
