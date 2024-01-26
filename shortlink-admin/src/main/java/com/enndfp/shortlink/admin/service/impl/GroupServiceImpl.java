@@ -1,5 +1,6 @@
 package com.enndfp.shortlink.admin.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -8,10 +9,13 @@ import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.dao.entity.GroupDO;
 import com.enndfp.shortlink.admin.dao.mapper.GroupMapper;
 import com.enndfp.shortlink.admin.dto.req.group.GroupAddReqDTO;
+import com.enndfp.shortlink.admin.dto.resp.group.GroupRespDTO;
 import com.enndfp.shortlink.admin.service.GroupService;
 import com.enndfp.shortlink.admin.utils.ThrowUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 短链接分组业务层实现类
@@ -44,6 +48,23 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         groupDO.setGroupName(groupName);
         int insert = groupMapper.insert(groupDO);
         ThrowUtil.throwServerIf(insert != 1, ErrorCode.GROUP_SAVE_ERROR);
+    }
+
+    @Override
+    public List<GroupRespDTO> listGroup() {
+        // TODO: 从上下文中获取用户名
+        String username = "enndfp";
+
+        // 2. 构造查询条件
+        LambdaQueryWrapper<GroupDO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(GroupDO::getUsername, username);
+        queryWrapper.orderByDesc(GroupDO::getSortOrder);
+        queryWrapper.orderByDesc(GroupDO::getUpdatedTime);
+
+        // 3. 查询分组列表
+        List<GroupDO> groupDOList = groupMapper.selectList(queryWrapper);
+
+        return BeanUtil.copyToList(groupDOList, GroupRespDTO.class);
     }
 
     /**

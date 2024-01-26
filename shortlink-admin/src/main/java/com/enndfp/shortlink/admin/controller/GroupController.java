@@ -3,14 +3,14 @@ package com.enndfp.shortlink.admin.controller;
 import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.common.convention.result.Result;
 import com.enndfp.shortlink.admin.dto.req.group.GroupAddReqDTO;
+import com.enndfp.shortlink.admin.dto.resp.group.GroupRespDTO;
 import com.enndfp.shortlink.admin.service.GroupService;
 import com.enndfp.shortlink.admin.utils.ResultUtil;
 import com.enndfp.shortlink.admin.utils.ThrowUtil;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 短链接分组控制层
@@ -38,5 +38,18 @@ public class GroupController {
         groupService.add(groupAddReqDTO);
 
         return ResultUtil.success();
+    }
+
+    /**
+     * 查询分组列表
+     *
+     * @return 分组列表
+     */
+    @GetMapping("/list")
+    public Result<List<GroupRespDTO>> list() {
+        // 1. 查询分组列表
+        List<GroupRespDTO> groupRespDTOList = groupService.listGroup();
+
+        return ResultUtil.success(groupRespDTOList);
     }
 }
