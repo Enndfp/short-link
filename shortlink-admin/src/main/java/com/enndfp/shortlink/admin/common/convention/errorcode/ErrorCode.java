@@ -13,7 +13,7 @@ public enum ErrorCode implements IErrorCode {
     // ========== 二级宏观错误码 ==========
     USER_NAME_NULL("A000100", "用户名为空"),
     PASSWORD_NULL("A000101", "密码为空"),
-    GROUP_NULL("A000201", "分组名称为空"),
+    GROUP_NAME_NULL("A000201", "分组名称为空"),
 
 
     // ========== 一级宏观错误码 系统执行出错 ==========
@@ -28,6 +28,7 @@ public enum ErrorCode implements IErrorCode {
     USER_OR_TOKEN_NULL("B000105", "用户不存在或token已过期"),
     USER_NOT_LOGIN("B000106", "用户未登录"),
     GROUP_SAVE_ERROR("B000201", "分组保存失败"),
+    GROUP_UPDATE_ERROR("B000202", "分组修改失败"),
 
 
     // ========== 一级宏观错误码 调用第三方服务出错 ==========
