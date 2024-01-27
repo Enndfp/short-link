@@ -88,6 +88,18 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         ThrowUtil.throwServerIf(update != 1, ErrorCode.GROUP_UPDATE_ERROR);
     }
 
+    @Override
+    public void delete(String gid) {
+        // 1. 构造删除条件
+        LambdaUpdateWrapper<GroupDO> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(GroupDO::getGid, gid);
+        updateWrapper.eq(GroupDO::getUsername, UserContext.getUsername());
+
+        // 3. 删除分组
+        int delete = groupMapper.delete(updateWrapper);
+        ThrowUtil.throwServerIf(delete != 1, ErrorCode.GROUP_DELETE_ERROR);
+    }
+
     /**
      * 校验Gid是否存在
      *

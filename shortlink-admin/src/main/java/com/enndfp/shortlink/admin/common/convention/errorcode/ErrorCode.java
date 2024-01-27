@@ -29,6 +29,7 @@ public enum ErrorCode implements IErrorCode {
     USER_NOT_LOGIN("B000106", "用户未登录"),
     GROUP_SAVE_ERROR("B000201", "分组保存失败"),
     GROUP_UPDATE_ERROR("B000202", "分组修改失败"),
+    GROUP_DELETE_ERROR("B000203", "分组删除失败"),
 
 
     // ========== 一级宏观错误码 调用第三方服务出错 ==========

@@ -1,5 +1,6 @@
 package com.enndfp.shortlink.admin.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.common.convention.result.Result;
 import com.enndfp.shortlink.admin.dto.req.group.GroupAddReqDTO;
@@ -66,6 +67,22 @@ public class GroupController {
         ThrowUtil.throwClientIf(groupUpdateReqDTO == null, ErrorCode.CLIENT_ERROR);
         // 2. 修改分组
         groupService.update(groupUpdateReqDTO);
+
+        return ResultUtil.success();
+    }
+
+    /**
+     * 删除分组
+     *
+     * @param gid 分组标识
+     * @return 删除结果
+     */
+    @PostMapping("/delete")
+    public Result<Void> delete(@RequestParam String gid) {
+        // 1. 校验请求参数
+        ThrowUtil.throwClientIf(StrUtil.isBlank(gid), ErrorCode.CLIENT_ERROR);
+        // 2. 删除分组
+        groupService.delete(gid);
 
         return ResultUtil.success();
     }
