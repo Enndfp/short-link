@@ -11,6 +11,7 @@ import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.dao.entity.GroupDO;
 import com.enndfp.shortlink.admin.dao.mapper.GroupMapper;
 import com.enndfp.shortlink.admin.dto.req.group.GroupAddReqDTO;
+import com.enndfp.shortlink.admin.dto.req.group.GroupSortReqDTO;
 import com.enndfp.shortlink.admin.dto.req.group.GroupUpdateReqDTO;
 import com.enndfp.shortlink.admin.dto.resp.group.GroupRespDTO;
 import com.enndfp.shortlink.admin.service.GroupService;
@@ -98,6 +99,27 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         // 3. 删除分组
         int delete = groupMapper.delete(updateWrapper);
         ThrowUtil.throwServerIf(delete != 1, ErrorCode.GROUP_DELETE_ERROR);
+    }
+
+    @Override
+    public void sort(List<GroupSortReqDTO> groupSortReqDTOList) {
+        for (GroupSortReqDTO groupSortReqDTO : groupSortReqDTOList) {
+            // 1. 校验请求参数
+            String gid = groupSortReqDTO.getGid();
+            Integer sortOrder = groupSortReqDTO.getSortOrder();
+            ThrowUtil.throwClientIf(StrUtil.hasBlank(gid) || sortOrder == null, ErrorCode.CLIENT_ERROR);
+
+            // 2. 构造排序修改条件
+            LambdaUpdateWrapper<GroupDO> updateWrapper = new LambdaUpdateWrapper<>();
+            updateWrapper.eq(GroupDO::getGid, gid);
+            updateWrapper.eq(GroupDO::getUsername, UserContext.getUsername());
+
+            // 3. 修改排序分组
+            GroupDO groupDO = new GroupDO();
+            groupDO.setSortOrder(sortOrder);
+            int update = groupMapper.update(groupDO, updateWrapper);
+            ThrowUtil.throwServerIf(update != 1, ErrorCode.GROUP_SORT_ERROR);
+        }
     }
 
     /**

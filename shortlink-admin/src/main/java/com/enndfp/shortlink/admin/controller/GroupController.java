@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.common.convention.result.Result;
 import com.enndfp.shortlink.admin.dto.req.group.GroupAddReqDTO;
+import com.enndfp.shortlink.admin.dto.req.group.GroupSortReqDTO;
 import com.enndfp.shortlink.admin.dto.req.group.GroupUpdateReqDTO;
 import com.enndfp.shortlink.admin.dto.resp.group.GroupRespDTO;
 import com.enndfp.shortlink.admin.service.GroupService;
@@ -83,6 +84,22 @@ public class GroupController {
         ThrowUtil.throwClientIf(StrUtil.isBlank(gid), ErrorCode.CLIENT_ERROR);
         // 2. 删除分组
         groupService.delete(gid);
+
+        return ResultUtil.success();
+    }
+
+    /**
+     * 排序分组
+     *
+     * @param groupSortReqDTOList 分组排序请求数据传输对象列表
+     * @return 排序结果
+     */
+    @PostMapping("sort")
+    public Result<Void> sort(@RequestBody List<GroupSortReqDTO> groupSortReqDTOList) {
+        // 1. 校验请求参数
+        ThrowUtil.throwClientIf(groupSortReqDTOList == null, ErrorCode.CLIENT_ERROR);
+        // 2. 排序分组
+        groupService.sort(groupSortReqDTOList);
 
         return ResultUtil.success();
     }

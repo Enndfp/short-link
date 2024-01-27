@@ -30,6 +30,7 @@ public enum ErrorCode implements IErrorCode {
     GROUP_SAVE_ERROR("B000201", "分组保存失败"),
     GROUP_UPDATE_ERROR("B000202", "分组修改失败"),
     GROUP_DELETE_ERROR("B000203", "分组删除失败"),
+    GROUP_SORT_ERROR("B000203", "分组排序失败"),
 
 
     // ========== 一级宏观错误码 调用第三方服务出错 ==========
