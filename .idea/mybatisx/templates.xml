@@ -68,8 +68,8 @@
             <option name="tableUIInfoList">
               <list>
                 <TableUIInfo>
-                  <option name="className" value="Group" />
-                  <option name="tableName" value="t_group" />
+                  <option name="className" value="Link" />
+                  <option name="tableName" value="t_link" />
                 </TableUIInfo>
               </list>
             </option>
