@@ -1,6 +1,6 @@
 package com.enndfp.shortlink.project.common.convention.result;
 
-import com.enndfp.shortlink.admin.common.convention.errorcode.IErrorCode;
+import com.enndfp.shortlink.project.common.convention.errorcode.IErrorCode;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
