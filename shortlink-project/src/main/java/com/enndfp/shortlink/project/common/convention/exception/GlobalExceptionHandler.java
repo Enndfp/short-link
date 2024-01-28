@@ -30,10 +30,10 @@ public class GlobalExceptionHandler {
     @SneakyThrows
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Result<?> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
-        log.error("methodArgumentNotValidExceptionHandler: ", ex);
         BindingResult bindingResult = ex.getBindingResult();
         Map<String, String> errorMap = getErrors(bindingResult);
-        return ResultUtil.failure(ErrorCode.SERVICE_ERROR, errorMap);
+        log.error("methodArgumentNotValidExceptionHandler: " + ex.getMessage() + errorMap, ex);
+        return ResultUtil.failure();
     }
 
     /**
@@ -50,8 +50,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(RuntimeException.class)
     public Result<?> runtimeExceptionHandler(RuntimeException ex) {
-        log.error("runtimeException: ", ex);
-        return ResultUtil.failure(ErrorCode.SERVICE_ERROR, ex.getMessage());
+        log.error("runtimeException: " + ex.getMessage(), ex);
+        return ResultUtil.failure();
     }
 
     /**
