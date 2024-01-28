@@ -1,13 +1,12 @@
 package com.enndfp.shortlink.admin.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.enndfp.shortlink.admin.context.UserContext;
 import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
+import com.enndfp.shortlink.admin.context.UserContext;
 import com.enndfp.shortlink.admin.dao.entity.GroupDO;
 import com.enndfp.shortlink.admin.dao.mapper.GroupMapper;
 import com.enndfp.shortlink.admin.dto.req.group.GroupAddReqDTO;
@@ -15,6 +14,7 @@ import com.enndfp.shortlink.admin.dto.req.group.GroupSortReqDTO;
 import com.enndfp.shortlink.admin.dto.req.group.GroupUpdateReqDTO;
 import com.enndfp.shortlink.admin.dto.resp.group.GroupRespDTO;
 import com.enndfp.shortlink.admin.service.GroupService;
+import com.enndfp.shortlink.admin.utils.RandomStringUtil;
 import com.enndfp.shortlink.admin.utils.ThrowUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         // 2. 同一用户生成的分组id不能重复
         String gid;
         do {
-            gid = RandomUtil.randomString(6);
+            gid = RandomStringUtil.generateRandomString(6);
         } while (checkGidExist(gid));
 
         // 3. 添加分组
