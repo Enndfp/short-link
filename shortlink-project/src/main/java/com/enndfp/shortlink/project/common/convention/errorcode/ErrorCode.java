@@ -20,6 +20,7 @@ public enum ErrorCode implements IErrorCode {
 
     // ========== 二级宏观错误码 ==========
     LINK_CREATE_ERROR("B000300", "短链接创建失败"),
+    LINK_FREQUENT_CREATE("B000301", "短链接频繁生成，请稍后再试"),
 
 
 
