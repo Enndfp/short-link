@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
      */
     private Map<String, String> getErrors(BindingResult bindingResult) {
 
-        Map<String, String> errorMap = new HashMap<>();
+        Map<String, String> errorMap = new HashMap<>(16);
         List<FieldError> errorList = bindingResult.getFieldErrors();
 
         for (FieldError error : errorList) {
