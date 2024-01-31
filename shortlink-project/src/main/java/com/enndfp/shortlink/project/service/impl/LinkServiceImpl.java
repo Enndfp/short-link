@@ -1,14 +1,22 @@
 package com.enndfp.shortlink.project.service.impl;
 
+import java.util.List;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.enndfp.shortlink.project.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.project.common.convention.exception.ServerException;
 import com.enndfp.shortlink.project.dao.entity.LinkDO;
 import com.enndfp.shortlink.project.dao.mapper.LinkMapper;
 import com.enndfp.shortlink.project.dto.req.link.LinkCreateReqDTO;
+import com.enndfp.shortlink.project.dto.req.link.LinkPageReqDTO;
 import com.enndfp.shortlink.project.dto.resp.link.LinkCreateRespDTO;
+import com.enndfp.shortlink.project.dto.resp.link.LinkPageRespDTO;
 import com.enndfp.shortlink.project.service.LinkService;
 import com.enndfp.shortlink.project.utils.HashUtil;
 import com.enndfp.shortlink.project.utils.ThrowUtil;
@@ -57,6 +65,23 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, LinkDO> implements 
         }
 
         return BeanUtil.toBean(linkDO, LinkCreateRespDTO.class);
+    }
+
+    @Override
+    public IPage<LinkPageRespDTO> pageLink(LinkPageReqDTO linkPageReqDTO) {
+        // 1. 校验请求参数
+        String gid = linkPageReqDTO.getGid();
+        ThrowUtil.throwClientIf(StrUtil.isBlank(gid), ErrorCode.GROUP_ID_NULL);
+
+        // 2. 构造分页查询参数
+        LambdaQueryWrapper<LinkDO> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(LinkDO::getGid, gid);
+        queryWrapper.eq(LinkDO::getEnableStatus, 1);
+        queryWrapper.orderByDesc(LinkDO::getCreatedTime);
+
+        // 3. 执行分页查询
+        IPage<LinkDO> linkPage = linkMapper.selectPage(linkPageReqDTO, queryWrapper);
+        return linkPage.convert(linkDO -> BeanUtil.toBean(linkDO, LinkPageRespDTO.class));
     }
 
 

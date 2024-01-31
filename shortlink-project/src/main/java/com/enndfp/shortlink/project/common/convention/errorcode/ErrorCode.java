@@ -12,6 +12,7 @@ public enum ErrorCode implements IErrorCode {
 
     // ========== 二级宏观错误码 ==========
     ORIGIN_URL_NULL("A000300", "原始链接为空"),
+    GROUP_ID_NULL("A000301", "分组标识为空"),
 
 
 
