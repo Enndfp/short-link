@@ -150,6 +150,26 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         }
     }
 
+    @Override
+    public void addDefaultGroup(String username) {
+        // 1. 生成的分组id不能重复
+        String gid;
+        do {
+            gid = RandomStringUtil.generateRandomString(6);
+        } while (checkGidExist(gid));
+
+        // 2. 添加默认分组
+        GroupDO groupDO = new GroupDO();
+        groupDO.setGid(gid);
+        groupDO.setUsername(username);
+        groupDO.setGroupName("默认分组");
+        int insert = groupMapper.insert(groupDO);
+        ThrowUtil.throwServerIf(insert != 1, ErrorCode.GROUP_SAVE_ERROR);
+
+        // 3. 将gid添加到布隆过滤器中
+        gidGenerateCachePenetrationBloomFilter.add(gid);
+    }
+
     /**
      * 校验Gid是否存在
      *

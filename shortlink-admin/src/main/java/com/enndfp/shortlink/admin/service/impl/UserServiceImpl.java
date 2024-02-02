@@ -15,6 +15,7 @@ import com.enndfp.shortlink.admin.dto.req.user.UserUpdateReqDTO;
 import com.enndfp.shortlink.admin.dto.resp.user.UserActualRespDTO;
 import com.enndfp.shortlink.admin.dto.resp.user.UserLoginRespDTO;
 import com.enndfp.shortlink.admin.dto.resp.user.UserRespDTO;
+import com.enndfp.shortlink.admin.service.GroupService;
 import com.enndfp.shortlink.admin.service.UserService;
 import com.enndfp.shortlink.admin.utils.ThrowUtil;
 import jakarta.annotation.Resource;
@@ -38,6 +39,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private GroupService groupService;
     @Resource
     private RedissonClient redissonClient;
     @Resource
@@ -97,6 +100,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
             // 4. 将用户名存入布隆过滤器
             userRegisterCachePenetrationBloomFilter.add(username);
+
+            // 5. 创建默认分组
+            groupService.addDefaultGroup(username);
         } finally {
             // 5. 释放锁
             lock.unlock();

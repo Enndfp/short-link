@@ -50,4 +50,11 @@ public interface GroupService extends IService<GroupDO> {
      * @param groupSortReqDTOList 分组排序请求数据传输对象列表
      */
     void sort(List<GroupSortReqDTO> groupSortReqDTOList);
+
+    /**
+     * 添加默认分组
+     *
+     * @param username 用户名
+     */
+    void addDefaultGroup(String username);
 }
