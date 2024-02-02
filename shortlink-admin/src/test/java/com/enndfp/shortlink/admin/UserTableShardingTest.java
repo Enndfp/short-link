@@ -5,19 +5,17 @@ package com.enndfp.shortlink.admin;
  */
 public class UserTableShardingTest {
 
-    public static final String SQL = "CREATE TABLE `t_user_%d` (\n" +
+    public static final String SQL = "CREATE TABLE `t_group_%d` (\n" +
             "\t`id` BIGINT ( 20 ) NOT NULL AUTO_INCREMENT COMMENT 'ID',\n" +
-            "\t`username` VARCHAR ( 256 ) NOT NULL COMMENT '用户名',\n" +
-            "\t`password` VARCHAR ( 512 ) NOT NULL COMMENT '密码',\n" +
-            "\t`real_name` VARCHAR ( 256 ) DEFAULT NULL COMMENT '真实姓名',\n" +
-            "\t`phone` VARCHAR ( 128 ) DEFAULT NULL COMMENT '手机号',\n" +
-            "\t`mail` VARCHAR ( 512 ) DEFAULT NULL COMMENT '邮箱',\n" +
-            "\t`deleted_time` datetime DEFAULT '2000-01-01 00:00:01' NOT NULL COMMENT '注销时间戳',\n" +
+            "\t`gid` VARCHAR ( 32 ) NOT NULL COMMENT '分组标识',\n" +
+            "\t`group_name` VARCHAR ( 64 ) NOT NULL COMMENT '分组名称',\n" +
+            "\t`username` VARCHAR ( 256 ) NOT NULL COMMENT '创建分组用户名',\n" +
+            "\t`sort_order` INT ( 3 ) DEFAULT 0 NOT NULL COMMENT '分组排序',\n" +
             "\t`created_time` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',\n" +
             "\t`updated_time` datetime DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',\n" +
             "\t`is_deleted` TINYINT ( 1 ) DEFAULT 0 NOT NULL COMMENT '删除标识 0：未删除 1：已删除',\n" +
             "\tPRIMARY KEY ( `id` ),\n" +
-            "\tUNIQUE KEY `idx_unique_username` ( `username` ) USING BTREE \n" +
+            "\tUNIQUE KEY `idx_unique_gid` ( `gid` ) USING BTREE \n" +
             ") ENGINE = INNODB DEFAULT CHARSET = utf8mb4;";
 
     public static void main(String[] args) {
