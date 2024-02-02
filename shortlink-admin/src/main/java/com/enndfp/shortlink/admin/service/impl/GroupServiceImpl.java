@@ -13,6 +13,8 @@ import com.enndfp.shortlink.admin.dto.req.group.GroupAddReqDTO;
 import com.enndfp.shortlink.admin.dto.req.group.GroupSortReqDTO;
 import com.enndfp.shortlink.admin.dto.req.group.GroupUpdateReqDTO;
 import com.enndfp.shortlink.admin.dto.resp.group.GroupRespDTO;
+import com.enndfp.shortlink.admin.remote.dto.LinkRemoteService;
+import com.enndfp.shortlink.admin.remote.dto.resp.link.LinkCountRespDTO;
 import com.enndfp.shortlink.admin.service.GroupService;
 import com.enndfp.shortlink.admin.utils.RandomStringUtil;
 import com.enndfp.shortlink.admin.utils.ThrowUtil;
@@ -35,6 +37,12 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
 
     @Resource
     private RBloomFilter<String> gidGenerateCachePenetrationBloomFilter;
+
+    /**
+     * TODO: 后续重构为 SpringCloud Feign 调用
+     */
+    LinkRemoteService linkRemoteService = new LinkRemoteService() {
+    };
 
     @Override
     public void add(GroupAddReqDTO groupAddReqDTO) {
@@ -73,8 +81,21 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
 
         // 3. 查询分组列表
         List<GroupDO> groupDOList = groupMapper.selectList(queryWrapper);
+        // 3.1 查询分组下的链接数量
+        List<LinkCountRespDTO> linkCountRespDTOList = linkRemoteService.count(groupDOList.stream().map(GroupDO::getGid).toList()).getData();
+        // 3.2 拷贝分组列表
+        List<GroupRespDTO> groupRespDTOList = BeanUtil.copyToList(groupDOList, GroupRespDTO.class);
+        // 3.3 设置分组下的链接数量
+        groupRespDTOList.forEach(groupRespDTO -> {
+            for (LinkCountRespDTO linkCountRespDTO : linkCountRespDTOList) {
+                if (groupRespDTO.getGid().equals(linkCountRespDTO.getGid())) {
+                    groupRespDTO.setLinkCount(linkCountRespDTO.getLinkCount());
+                    break;
+                }
+            }
+        });
 
-        return BeanUtil.copyToList(groupDOList, GroupRespDTO.class);
+        return groupRespDTOList;
     }
 
     @Override

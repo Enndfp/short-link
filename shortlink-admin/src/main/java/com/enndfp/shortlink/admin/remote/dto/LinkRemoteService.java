@@ -8,11 +8,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.enndfp.shortlink.admin.common.convention.result.Result;
 import com.enndfp.shortlink.admin.remote.dto.req.link.LinkPageReqDTO;
 import com.enndfp.shortlink.admin.remote.dto.req.link.LinkPageRespDTO;
+import com.enndfp.shortlink.admin.remote.dto.resp.link.LinkCountRespDTO;
 import com.enndfp.shortlink.admin.remote.dto.resp.link.LinkCreateReqDTO;
 import com.enndfp.shortlink.admin.remote.dto.resp.link.LinkCreateRespDTO;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -52,6 +55,25 @@ public interface LinkRemoteService {
 
         // 2. 执行远程调用
         String resultPageStr = HttpUtil.get("http://127.0.0.1:8001/api/short-link/v1/link/page", requestParamMap);
+
+        // 3. 解析响应结果
+        return JSON.parseObject(resultPageStr, new TypeReference<>() {
+        });
+    }
+
+    /**
+     * 根据分组标识统计链接数量
+     *
+     * @param gids 分组标识列表
+     * @return 链接数量返回数据传输对象列表
+     */
+    default Result<List<LinkCountRespDTO>> count(@RequestParam List<String> gids) {
+        // 1. 获取请求参数
+        Map<String, Object> requestParamMap = new HashMap<>();
+        requestParamMap.put("gids", gids);
+
+        // 2. 执行远程调用
+        String resultPageStr = HttpUtil.get("http://127.0.0.1:8001/api/short-link/v1/link/count", requestParamMap);
 
         // 3. 解析响应结果
         return JSON.parseObject(resultPageStr, new TypeReference<>() {

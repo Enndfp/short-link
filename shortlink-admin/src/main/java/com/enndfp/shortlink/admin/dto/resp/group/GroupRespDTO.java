@@ -24,4 +24,9 @@ public class GroupRespDTO {
      * 分组排序
      */
     private Integer sortOrder;
+
+    /**
+     * 分组下的链接数量
+     */
+    private Integer linkCount;
 }

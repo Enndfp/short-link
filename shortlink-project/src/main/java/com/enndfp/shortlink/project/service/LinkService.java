@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.enndfp.shortlink.project.dao.entity.LinkDO;
 import com.enndfp.shortlink.project.dto.req.link.LinkCreateReqDTO;
 import com.enndfp.shortlink.project.dto.req.link.LinkPageReqDTO;
+import com.enndfp.shortlink.project.dto.resp.link.LinkCountRespDTO;
 import com.enndfp.shortlink.project.dto.resp.link.LinkCreateRespDTO;
 import com.enndfp.shortlink.project.dto.resp.link.LinkPageRespDTO;
+
+import java.util.List;
 
 /**
  * 短链接业务层接口
@@ -30,4 +33,12 @@ public interface LinkService extends IService<LinkDO> {
      * @return 短链接分页响应传输对象
      */
     IPage<LinkPageRespDTO> pageLink(LinkPageReqDTO linkPageReqDTO);
+
+    /**
+     * 根据分组标识统计链接数量
+     *
+     * @param gids 分组标识列表
+     * @return 链接数量返回数据传输对象列表
+     */
+    List<LinkCountRespDTO> countByGids(List<String> gids);
 }

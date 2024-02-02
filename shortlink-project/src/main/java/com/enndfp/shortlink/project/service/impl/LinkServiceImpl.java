@@ -1,8 +1,10 @@
 package com.enndfp.shortlink.project.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -15,6 +17,7 @@ import com.enndfp.shortlink.project.dao.entity.LinkDO;
 import com.enndfp.shortlink.project.dao.mapper.LinkMapper;
 import com.enndfp.shortlink.project.dto.req.link.LinkCreateReqDTO;
 import com.enndfp.shortlink.project.dto.req.link.LinkPageReqDTO;
+import com.enndfp.shortlink.project.dto.resp.link.LinkCountRespDTO;
 import com.enndfp.shortlink.project.dto.resp.link.LinkCreateRespDTO;
 import com.enndfp.shortlink.project.dto.resp.link.LinkPageRespDTO;
 import com.enndfp.shortlink.project.service.LinkService;
@@ -82,6 +85,21 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, LinkDO> implements 
         // 3. 执行分页查询
         IPage<LinkDO> linkPage = linkMapper.selectPage(linkPageReqDTO, queryWrapper);
         return linkPage.convert(linkDO -> BeanUtil.toBean(linkDO, LinkPageRespDTO.class));
+    }
+
+    @Override
+    public List<LinkCountRespDTO> countByGids(List<String> gids) {
+        // 1. 构造查询条件
+        QueryWrapper<LinkDO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("gid, count(1) as linkCount")
+                .eq("enable_status", 1)
+                .in("gid", gids)
+                .groupBy("gid");
+
+        // 2. 查询分组下的链接数量
+        List<Map<String, Object>> linkCountList = linkMapper.selectMaps(queryWrapper);
+
+        return BeanUtil.copyToList(linkCountList, LinkCountRespDTO.class);
     }
 
 
