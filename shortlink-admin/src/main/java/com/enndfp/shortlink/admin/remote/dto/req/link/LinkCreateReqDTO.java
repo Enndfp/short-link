@@ -6,32 +6,17 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- * 短链接分页响应传输对象
+ * 短链接创建请求传输对象
  *
  * @author Enndfp
  */
 @Data
-public class LinkPageRespDTO {
-
-    /**
-     * ID
-     */
-    private Long id;
+public class LinkCreateReqDTO {
 
     /**
      * 域名
      */
     private String domain;
-
-    /**
-     * 短链接
-     */
-    private String shortUri;
-
-    /**
-     * 完整短链接
-     */
-    private String fullShortUrl;
 
     /**
      * 原始链接
@@ -44,9 +29,9 @@ public class LinkPageRespDTO {
     private String gid;
 
     /**
-     * 网站图标
+     * 创建类型 0：控制台 1：接口
      */
-    private String favicon;
+    private Integer createdType;
 
     /**
      * 有效期类型 0：永久有效 1：用户自定义
@@ -63,10 +48,4 @@ public class LinkPageRespDTO {
      * 描述
      */
     private String description;
-
-    /**
-     * 创建时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date createdTime;
 }

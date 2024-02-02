@@ -5,10 +5,9 @@ import com.enndfp.shortlink.admin.common.convention.errorcode.ErrorCode;
 import com.enndfp.shortlink.admin.common.convention.result.Result;
 import com.enndfp.shortlink.admin.remote.dto.LinkRemoteService;
 import com.enndfp.shortlink.admin.remote.dto.req.link.LinkPageReqDTO;
-import com.enndfp.shortlink.admin.remote.dto.req.link.LinkPageRespDTO;
-import com.enndfp.shortlink.admin.remote.dto.resp.link.LinkCreateReqDTO;
+import com.enndfp.shortlink.admin.remote.dto.resp.link.LinkPageRespDTO;
+import com.enndfp.shortlink.admin.remote.dto.req.link.LinkCreateReqDTO;
 import com.enndfp.shortlink.admin.remote.dto.resp.link.LinkCreateRespDTO;
-import com.enndfp.shortlink.admin.utils.ResultUtil;
 import com.enndfp.shortlink.admin.utils.ThrowUtil;
 import org.springframework.web.bind.annotation.*;
 
