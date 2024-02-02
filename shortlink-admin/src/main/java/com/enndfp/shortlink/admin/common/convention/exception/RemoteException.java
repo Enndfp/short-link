@@ -17,13 +17,6 @@ public class RemoteException extends AbstractException {
     public RemoteException(IErrorCode errorCode,String message) {
         this(message, null, errorCode);
     }
-    public RemoteException(String message) {
-        this(message, null, ErrorCode.REMOTE_ERROR);
-    }
-
-    public RemoteException(String message, IErrorCode errorCode) {
-        this(message, null, errorCode);
-    }
 
     public RemoteException(String message, Throwable throwable, IErrorCode errorCode) {
         super(message, throwable, errorCode);

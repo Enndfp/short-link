@@ -12,10 +12,6 @@ import java.util.Optional;
  */
 public class ServerException extends AbstractException {
 
-    public ServerException(String message) {
-        this(message, null, ErrorCode.SERVICE_ERROR);
-    }
-
     public ServerException(IErrorCode errorCode,String message) {
         this(message, null, errorCode);
     }

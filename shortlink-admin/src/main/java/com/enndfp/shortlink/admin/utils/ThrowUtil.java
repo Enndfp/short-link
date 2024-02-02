@@ -60,7 +60,7 @@ public class ThrowUtil {
      * @param errorCode 业务错误码
      */
     public static void throwClientIf(boolean condition, ErrorCode errorCode) {
-        throwIf(condition, new ClientException(errorCode));
+        throwIf(condition, new ClientException(errorCode, errorCode.message()));
     }
 
     /**
@@ -70,7 +70,7 @@ public class ThrowUtil {
      * @param errorCode 业务错误码
      */
     public static void throwRemoteIf(boolean condition, ErrorCode errorCode) {
-        throwIf(condition, new RemoteException(errorCode));
+        throwIf(condition, new RemoteException(errorCode, errorCode.message()));
     }
 
     /**
@@ -80,44 +80,7 @@ public class ThrowUtil {
      * @param errorCode 业务错误码
      */
     public static void throwServerIf(boolean condition, ErrorCode errorCode) {
-        throwIf(condition, new ServerException(errorCode));
+        throwIf(condition, new ServerException(errorCode, errorCode.message()));
     }
-
-    /**
-     * 条件成立则抛出指定的异常，包含自定义消息
-     * @param condition 条件
-     * @param errorCode 业务错误码
-     * @param message 自定义消息
-     */
-    public static void throwClientIf(boolean condition, ErrorCode errorCode, String message) {
-        if (condition) {
-            throw new ClientException(errorCode, message);
-        }
-    }
-
-    /**
-     * 条件成立则抛出指定的异常，包含自定义消息
-     * @param condition 条件
-     * @param errorCode 业务错误码
-     * @param message 自定义消息
-     */
-    public static void throwRemoteIf(boolean condition, ErrorCode errorCode, String message) {
-        if (condition) {
-            throw new RemoteException(errorCode, message);
-        }
-    }
-
-    /**
-     * 条件成立则抛出指定的异常，包含自定义消息
-     * @param condition 条件
-     * @param errorCode 业务错误码
-     * @param message 自定义消息
-     */
-    public static void throwServerIf(boolean condition, ErrorCode errorCode, String message) {
-        if (condition) {
-            throw new ServerException(errorCode, message);
-        }
-    }
-
 }
 
