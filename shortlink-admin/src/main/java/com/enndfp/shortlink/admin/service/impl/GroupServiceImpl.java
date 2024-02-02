@@ -17,6 +17,7 @@ import com.enndfp.shortlink.admin.service.GroupService;
 import com.enndfp.shortlink.admin.utils.RandomStringUtil;
 import com.enndfp.shortlink.admin.utils.ThrowUtil;
 import jakarta.annotation.Resource;
+import org.redisson.api.RBloomFilter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,13 +33,16 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
     @Resource
     private GroupMapper groupMapper;
 
+    @Resource
+    private RBloomFilter<String> gidGenerateCachePenetrationBloomFilter;
+
     @Override
     public void add(GroupAddReqDTO groupAddReqDTO) {
         // 1. 校验请求参数
         String groupName = groupAddReqDTO.getGroupName();
         ThrowUtil.throwClientIf(StrUtil.isBlank(groupName), ErrorCode.GROUP_NAME_NULL);
 
-        // 2. 同一用户生成的分组id不能重复
+        // 2. 生成的分组id不能重复
         String gid;
         do {
             gid = RandomStringUtil.generateRandomString(6);
@@ -51,6 +55,9 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         groupDO.setGroupName(groupName);
         int insert = groupMapper.insert(groupDO);
         ThrowUtil.throwServerIf(insert != 1, ErrorCode.GROUP_SAVE_ERROR);
+
+        // 4. 将gid添加到布隆过滤器中
+        gidGenerateCachePenetrationBloomFilter.add(gid);
     }
 
     @Override
@@ -129,15 +136,8 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
      * @return 是否存在
      */
     private boolean checkGidExist(String gid) {
-        // 1. 构造查询条件
-        LambdaQueryWrapper<GroupDO> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(GroupDO::getGid, gid);
-        queryWrapper.eq(GroupDO::getUsername, UserContext.getUsername());
-
-        // 2. 查询分组数量
-        Long count = groupMapper.selectCount(queryWrapper);
-
-        return count > 1;
+        // 判断布隆过滤器是否存在此gid
+        return gidGenerateCachePenetrationBloomFilter.contains(gid);
     }
 }
 
